@@ -1,0 +1,47 @@
+;=============== RUN CONTROL ==============
+integrator               = md ;Leap-Frog algorithm for integration
+dt                       = 0.002 ;ps
+nsteps                   = 1000000 ;Total time: 2000ps 
+;================ OUTPUT CONTROL ===========
+nstlog                   = 1000
+nstenergy                = 500
+nstxout-compressed       = 500
+nstvout			 = 500
+nstfout			 = 0
+;================ NEIGHBOUR SEARCHING ========
+rlist			 = 0.85
+pbc			 = xyz
+;=============== ELECTROSTATICS ==============
+coulombtype              = PME ;See Ewald section for more info
+rcoulomb                 = 0.9
+;=============== VAN DER WAALS ===============
+vdwtype			 = Cut-off
+rvdw			 = 0.9
+DispCorr		 = EnerPres
+;=============== EWALD =======================
+fourierspacing		 = 0.1
+pme-order		 = 4
+epsilon_surface		 = 0
+;============== TEMPERATURE COUPLING =========
+tcoupl			 = v-rescale
+tau-t			 = 1
+tc-grps			 = system
+ref-t			 = 363 ;K
+;============= PRESSURE COUPLING =============
+pcoupl			 = berendsen
+pcoupltype		 = isotropic
+tau-p			 = 2
+compressibility		 = 5e-5
+ref-p			 = 1 ;bar
+;============= VELOCITY GENERATION ===========
+gen-vel			 = yes
+gen-seed		 = -1
+gen-temp		 = 363 ;K
+;============ CONSTRAINTS ====================
+constraints              = h-bonds
+
+
+
+
+
+

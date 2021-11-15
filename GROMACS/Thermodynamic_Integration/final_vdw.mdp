@@ -1,0 +1,96 @@
+; Run control
+integrator               = md       ; Langevin dynamics
+tinit                    = 0
+dt                       = 0.002
+nsteps                   = 2000000    ; 4000 ps
+;================ OUTPUT CONTROL ===========
+nstlog                   = 1000
+nstenergy                = 500
+nstxout-compressed       = 500
+nstvout			 = 500
+nstfout			 = 0
+; Neighborsearching and short-range nonbonded interactions
+cutoff-scheme            = verlet
+nstlist                  = 20 
+ns_type                  = grid
+pbc                      = xyz
+rlist                    = 1.0
+; Electrostatics
+coulombtype              = PME
+rcoulomb                 = 1.0
+; van der Waals
+vdwtype                  = cutoff
+vdw-modifier             = potential-switch
+rvdw-switch              = 0.9
+rvdw                     = 1.0
+; Apply long range dispersion corrections for Energy and Pressure
+DispCorr                  = EnerPres
+; Spacing for the PME/PPPM FFT grid
+;=============== EWALD =======================
+fourierspacing		 = 0.1
+pme-order		 = 4
+epsilon_surface		 = 0
+;============== TEMPERATURE COUPLING =========
+tcoupl			 = v-rescale
+tau-t			 = 1
+tc-grps			 = system
+ref-t			 = 383 ;K
+;============= PRESSURE COUPLING =============
+pcoupl			 = parrinello-rahman
+pcoupltype		 = isotropic
+tau-p			 = 10
+compressibility		 = 5e-5
+ref-p			 = 1 ;bar
+;______________________________________________________________________________________________________________________________________________________
+;                                             INICIO DE PARAMETROS DE INTEGRACION TERMODINAMICA
+
+; Free energy control stuff
+free_energy              = yes    ; ACTIVA FLAG DE TI
+init_lambda_state        = &state      ; INDICA QUE INICIA EN EL ESTADO 0 DE LA TABLA INFERIOR
+delta_lambda             = 0
+calc_lambda_neighbors    = 1        ; only immediate neighboring windows
+; Vectors of lambda specified here
+; Each combination is an index that is retrieved from init_lambda_state for each simulation
+
+;_____________________________________________ ESTAS SON LAS CONDICIONES DE LA TI____________________________________________________
+;____________________________________________________________________________________________________________________________________
+; init_lambda_state        0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   ;|
+vdw_lambdas              = 0.00 0.03 0.06 0.09 0.12 0.15 0.18 0.20 0.25 0.30 0.35 0.40 0.45 0.50 0.55 0.60 0.65 0.70 0.80 0.90 1.00 ;|
+coul_lambdas             = 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 ;|
+;____________________________________________________________________________________________________________________________________
+
+;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX NO TOCAR ESTA SECCION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+; We are not transforming any bonded or restrained interactions                                                                                  XXXXX
+bonded_lambdas           = 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00   ; NO TOCAR XXXXX
+restraint_lambdas        = 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00   ; NO TOCAR XXXXX
+; Masses are not changing (particle identities are the same at lambda = 0 and lambda = 1)                                                        XXXXX
+mass_lambdas             = 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00   ; NO TOCAR XXXXX
+; Not doing simulated temperting here                                                                                                            XXXXX
+temperature_lambdas      = 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00   ; NO TOCAR XXXXX
+;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+; Options for the decoupling
+sc-alpha                 = 0.5       ; PARAMETRO ALPHA DEL SOFT CORE - NO TOCAR O COLOCAR SEGUN REVISION BIBLIOGRAFICA
+sc-coul                  = no        ; linear interpolation of Coulomb (none in this case)
+sc-power                 = 1       ;POTENCIA DEL SOFT CORE - NO TOCAR O COLOCAR SEGUN REVISION BIBLIOGRAFICA
+sc-sigma                 = 0.3       ; PARAMETRO DEL SOFT CORE - NO TOCAR O COLOCAR SEGUN REVISION BIBLIOGRAFICA
+couple-moltype           = THX  ; NOMBRE DE LA MOLECULA QUE ACTUA COMO SOLUTO Y ES LA QUE SE VA A ENCENDER
+couple-lambda0           = none      ; INDICA QUE EL ESTADO INCIAL ES SIN INTERACCION. 
+couple-lambda1           = vdw       ; INDICA QUE EL ESTADO FINAL ES VDW ENCENDIDO UNICAMENTE. 
+couple-intramol          = no
+nstdhdl                  = 10
+;                                            FIN DE LOS FLAGS DE INTEGRACION TERMODINAMICA
+;______________________________________________________________________________________________________________________________________________________
+
+; No velocities during EM 
+; Do not generate velocities
+gen_vel                  = no 
+; options for bonds
+constraints              = h-bonds  ; we only have C-H bonds here
+; Type of constraint algorithm
+;constraint-algorithm     = lincs
+; Constrain the starting configuration
+; since we are continuing from NVT
+;continuation             = no 
+; Highest order in the expansion of the constraint coupling matrix
+;lincs-order              = 12
