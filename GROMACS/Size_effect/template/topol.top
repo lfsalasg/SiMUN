@@ -1,0 +1,31 @@
+;
+;	File 'topol.top' was generated
+;	By user: luis (1000)
+;	On host: Minerva
+;	At date: Wed Jan 20 11:01:36 2021
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	                    :-) GROMACS - gmx pdb2gmx, 2020.4 (-:
+;	
+;	Executable:   /usr/local/gromacs/bin/gmx
+;	Data prefix:  /usr/local/gromacs
+;	Working dir:  /home/luis/Documents/Tesis Grado/Simulations/1000_Cannabidiol_Pure_Component/1100_Cannabidiol_OPLS
+;	Command line:
+;	  gmx pdb2gmx -f CBD.pdb -o CBD2.gro -p topol.top
+;	Force field was read from the standard GROMACS share directory.
+;
+
+; Include forcefield parameters
+#include "oplsaa.ff/forcefield.itp"
+
+#include "topologic_data.itp"
+
+[ system ]
+; Name
+Pure CBD
+
+[ molecules ]
+; Compound        #mols
+CBD               &nmol
