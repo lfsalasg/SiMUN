@@ -1,42 +1,45 @@
 ;=============== RUN CONTROL ==============
-integrator               = md ;Leap-Frog algorithm for integration
-dt                       = 0.002 ;ps
-nsteps                   = 2000000 ;Total time: 4000ps 
+integrator               = sd ;Leap-Frog algorithm for integration
+dt                       = 0.001 ;ps
+nsteps                   = 4000000 ;Total time: 4000ps 
 ;================ OUTPUT CONTROL ===========
 nstlog                   = 1000
-nstenergy                = 500
+nstenergy                = 100
 nstxout-compressed       = 500
 nstvout			 = 500
 nstfout			 = 0
 ;================ NEIGHBOUR SEARCHING ========
-rlist			 = 0.85
-pbc			 = xyz
+cutoff-scheme		 = group
+nstlist			 = 0
+ns-type			 = simple
+rlist			 = 0
+pbc			 = no
 ;=============== ELECTROSTATICS ==============
-coulombtype              = PME ;See Ewald section for more info
-rcoulomb                 = 0.9
+coulombtype              = cut-off ;See Ewald section for more info
+rcoulomb                 = 0
 ;=============== VAN DER WAALS ===============
 vdwtype			 = Cut-off
-rvdw			 = 0.9
-DispCorr		 = EnerPres
+rvdw			 = 0
+DispCorr		 = no
 ;=============== EWALD =======================
 fourierspacing		 = 0.1
 pme-order		 = 4
 epsilon_surface		 = 0
 ;============== TEMPERATURE COUPLING =========
-tcoupl			 = nose-hoover
+tcoupl			 = v-rescale
 tau-t			 = 1
 tc-grps			 = system
-ref-t			 = 363 ;K
+ref-t			 = 403 ;K
 ;============= PRESSURE COUPLING =============
 pcoupl			 = no
 pcoupltype		 = isotropic
 tau-p			 = 2
 compressibility		 = 5e-5
-ref-p			 = 1 ;bar
+ref-p			 = 0 ;bar
 ;============= VELOCITY GENERATION ===========
 gen-vel			 = no
 gen-seed		 = -1
-gen-temp		 = 353 ;K
+gen-temp		 = &temperature ;K
 ;============ CONSTRAINTS ====================
 constraints              = h-bonds
 

@@ -4,7 +4,7 @@ The current script runs a standard simulation following these steps:
 1. A minimization step using the `minim.mdp` file.
 2. A equilibration step using the `equil.mdp` file.
 3. Scaling the box obtained during the equilibration stage to the average density. The script calculates the density starting at the 800ps. You may need to change this!
-4. A production step using the `final.mdp` file. Be aware that this script was thogught to produce on the NVT ensemble.
+4. A production step using the `final.mdp` file. Be aware that this script was thought to produce on the NVT ensemble.
 
 ## How to use?
 
