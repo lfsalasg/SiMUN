@@ -8,12 +8,22 @@ The current script runs a standard simulation following these steps:
 
 ## How to use?
 
-1. Prepare all your files (topologic, structure, and the mdp files) on a folder (this folder is the `<root_file>`). You may need to edit the given mdp files.
-2. Create a folder to save all the results (This is the `<target_file>`). Results will have the same name as the mdp files.
+1. Prepare all your files (topologic, structure, and the mdp files) on a folder (this folder is the `<root_dir>`). You may need to edit the given mdp files.
+2. Create a folder to save all the results (This is the `<target_dir>`). Results will have the same name as the mdp files.
 3. Run the `startSimulation.sh` script as:
 ```
-bash startSimulation.sh <root_file> <target_file>
+bash startSimulation.sh <root_dir> <target_dir>
 ```
+### Required files in the root_dir
+- minim.mdp: The minimization config file
+- equil.mdp: The equilibration config file
+- final.mdp: The production config file
+- topol_mod.top: The file with all the topologic information
+- init_box.gro: The initial box for the MD simulation
+
+### Output files 
+- edr, log, tpr, ttr, xtc and gro files of the minimization, equilibration and production steps.
+- The average size of the box between 800 and the final point of the equilibration (`box.log`)
 
 ## Stuff to do
 
