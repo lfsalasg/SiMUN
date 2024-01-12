@@ -1,0 +1,8 @@
+# of rules to overwrite
+0
+# of defined interactions
+1
+# type     type2     interaction
+C00          H_com      feynman-hibbs-lennard-jones    45.825    3.130 2.016
+# of mixing rules to overwrite
+0
